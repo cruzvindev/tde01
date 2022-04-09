@@ -1,0 +1,74 @@
+package linguagemdeprogramacao;
+
+public class venda {
+
+	//ATRIBUTOS
+	private int produto = Produto.getCodigo();
+	private String vendedor = Vendedor.getNome();
+	public static double desconto;
+	private int quantidadeItens;
+	public double valor;
+	
+	//MÉTODOS GETTERS AND SETTERS
+	public int getProduto() {
+		return produto;
+	}
+	public String getVendedor() {
+		return vendedor;
+	}
+	public int getQuantidadeItens() {
+		return quantidadeItens;
+	}
+	public void setQuantidadeItens(int quantidadeItens) {
+		this.quantidadeItens = quantidadeItens;
+	}
+	
+	//MÉTODOS
+	public static void efetuarDesconto(double desconto) {
+		double resultado = Produto.getValorVenda() - ((desconto / 100) * Produto.getValorVenda());
+		if(resultado > Produto.getValorCusto()) {
+			venda.desconto = (desconto / 100) * Produto.getValorVenda();
+		}
+		else {
+			venda.desconto = 0;
+		}
+	}
+	
+	public double calcularValor() {
+		this.valor = this.quantidadeItens * Produto.getValorVenda();
+		if(Produto.isPromocao() == true) {
+			return this.valor - (venda.desconto * getQuantidadeItens());
+		}
+		else {
+			return this.valor;
+		}
+	}
+	
+	public double calcularComissao() {
+		if(Produto.isPromocao() == true) {
+			return ((Vendedor.getComissao() / 2) / 100) * this.valor;
+		}
+		else {
+			return (Vendedor.getComissao() / 100) * this.valor;
+		}
+	}
+	
+	public void imprimir() {
+		System.out.println("** VENDEDOR: **");
+		System.out.printf("Código: %d\n", Vendedor.getCodigo());
+		System.out.printf("Nome: %s\n", Vendedor.getNome());
+		System.out.printf("Comissão: %.2f\n", calcularComissao());
+		System.out.println("** PRODUTO: **");
+		System.out.printf("Quantidade de itens: %d\n", this.quantidadeItens);
+		System.out.printf("Código: %d\n", Produto.getCodigo());
+		System.out.printf("Descrição: %s\n", Produto.getDescricao());
+		System.out.printf("Valor do produto: %.2f\n", Produto.getValorVenda());
+		System.out.println("Produto está na promoção: " + Produto.isPromocao());
+		System.out.printf("Valor do desconto: %.2f\n", (venda.desconto) * getQuantidadeItens());
+		System.out.printf("VALOR TOTAL: %.2f\n", calcularValor());
+	}
+}
+	
+	
+	
+ 

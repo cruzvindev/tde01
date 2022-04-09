@@ -1,0 +1,97 @@
+package linguagemdeprogramacao;
+
+public class venda {
+
+	private int produto = Produto.getCodigo();
+	private String nome = Vendedor.getNome();
+	private double desconto;
+	private int quantidadeItens;
+	private double valor;
+	
+	
+	
+	public int getProduto() {
+		return produto;
+	}
+	public void setProduto(int produto) {
+		this.produto = produto;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public double getDesconto() {
+		return desconto;
+	}
+	public void setDesconto(double desconto) {
+		this.desconto = desconto;
+	}
+	public int getQuantidadeItens() {
+		return quantidadeItens;
+	}
+	public void setQuantidadeItens(int quantidadeItens) {
+		this.quantidadeItens = quantidadeItens;
+	}
+	public double getValor() {
+		return valor;
+	}
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+	
+	Produto promo = new Produto();
+	
+	public double calcularValor() {
+		
+		if(promo.isPromocao()== true) {
+			return promo.getValorVenda() - getDesconto();
+		} else {
+			
+			return promo.getValorVenda();
+		}
+		
+	}
+	
+	public void efetuarDesconto(double porcentagem) {
+		
+		
+		if((porcentagem/100)* promo.getValorVenda() < promo.getValorCusto()) {
+			setDesconto(0);
+		}else {
+			
+			setDesconto((porcentagem/100)* promo.getValorVenda());
+		}
+		
+		
+	}
+	
+	public double calcularComissao() {
+		
+		if(promo.isPromocao()== true) {
+			return;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+  /*– produto (Tipo definido pela classe Produto)
+	– vendedor (Tipo definido pela classe Produto)
+	– desconto (em reais R$)
+	– quantidadeItens
+	– valor
+	• Metodos
+	– Os get e set para todos os atributos produto, vendedor e
+	quantidadeItens
+	– calcularValor
+	– calcularComissao
+	– efetuarDesconto
+	– imprimir
+	
+	*/
+	
